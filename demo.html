@@ -1,0 +1,34 @@
+<html>
+<body>
+<canvas id='board'style='background:pink' height=500 width=500></canvas>
+<script type="text/javascript">
+var canvas=document.getElementById('board');
+var cvs=canvas.getContext('2d');
+var pos={};
+function t_start(event){
+pos.x=event.touches[0].pageX;
+pos.y=event.touches[0].pageY;
+cvs.fillRect(pos.x-2,pos.y-2,4,4);
+}
+function t_move(event){
+event.preventDefault();
+cvs.beginPath();
+cvs.lineWidth=4;
+cvs.moveTo(pos.x,pos.y);
+pos.x=event.changedTouches[0].pageX;
+pos.y=event.changedTouches[0].pageY;
+
+cvs.lineTo(pos.x,pos.y);
+cvs.closePath();
+cvs.stroke();
+}
+function t_end(event){
+cvs.clearRect(0,0,500,500);
+}
+canvas.addEventListener('touchstart',t_start,false);
+canvas.addEventListener('touchmove',t_move,false);
+canvas.addEventListener('touchend',t_end,false);
+</script>
+
+</body>
+</html>
